@@ -121,7 +121,7 @@ Structure designs that would be added in the front end page that this file refer
                 <?php
 				//codes of php and sql for displaying the articles associated with the category.
                     $category_id = (int)$_GET['catId'];                
-                    $catArtSelection = "SELECT article_id,title,author,content
+                    $catArtSelection = "SELECT article_id,title,author,content,publishDate
                     FROM article
                     WHERE categoryId=:categoryId";
 					$count = 0;
@@ -133,6 +133,9 @@ Structure designs that would be added in the front end page that this file refer
 						<div class="headStart">
 						<h2><a class="hhk" href="article.php?artId='.$artVal['article_id'].'">'.$artVal['title'].'</a></h2>
 						</div>
+						<div class="dateStart">
+									<em>'.$artVal['publishDate'].'</em><br><br>
+								</div>
 						<div class="contentStart">
 							<p>'.$artVal['content'].'</p>
 						</div>

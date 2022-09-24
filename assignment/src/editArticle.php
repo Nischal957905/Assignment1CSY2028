@@ -26,7 +26,7 @@ if(isset($_SESSION['onBoardUser'])){
 //Logic to edit the changes that has been made into the database.
 if(isset($_POST['submit'])){
 	$intVal = (int)$_POST['artIdd'];
-	if(!empty($_POST['editTitleArt']) && !empty($_POST['editArtAuthor']) && isset($_POST['editArtCon'])){
+	if(!empty($_POST['editArtTitle']) && !empty($_POST['editArtAuthor']) && !empty($_POST['editArtCon'])){
 		updateArt($intVal,$_POST['editArtTitle'],$_POST['editArtAuthor'],$_POST['editArtCon']);
 		header('location: editArticle.php?artId='.$intVal);
     }
