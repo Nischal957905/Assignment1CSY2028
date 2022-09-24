@@ -4,6 +4,20 @@ session_start();
 //required the respective file at least ones in this file
 require_once 'dbConnection.php';
 require_once 'insertInto.php';
+/*
+Refrence for various php codes used in the files.
+w3Schools(n.d.)PHP Tutorial. w3Schools[online]. Available from: https://www.w3schools.com/php/default.asp[Accessed 10 September 2022]
+*/
+
+/*
+Refrence for all php date and time codes used in the files.
+w3Schools(n.d.)PHP Date and Time. w3Schools[online]. Available from: https://www.w3schools.com/php/php_date.asp[Accessed 10 September 2022]
+*/
+
+/*
+Refrence for all the php sql and docker compose codes used in the files.
+NILE - University of Northampton(n.d.)Module Activities. NILE - University of Northampton[online]. Available from: https://nile.northampton.ac.uk/ultra/courses/_126708_1/cl/outline[Accessed 10 September 2022]
+*/
 
 //Code to be executed when the login button is clicked in the login page.
 //Check if the user trying to login is valid or not.
