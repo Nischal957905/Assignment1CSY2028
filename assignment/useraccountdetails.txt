@@ -1,0 +1,9 @@
+Normal user details->
+
+email->pekora@gmail.com
+password->pekora
+
+Admin user
+
+email->admin@gmail.com
+password->ADMIN

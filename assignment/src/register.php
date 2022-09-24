@@ -47,14 +47,37 @@ Structure designs that would be added in the front end page that this file refer
 <!DOCTYPE html>
 <html>
 	<head>
-        <link rel="stylesheet" href="login.css?v=<?php echo time();?>"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-		<title>Northampton News - Register</title>
+	<link rel="stylesheet" href="styles.css?v=<?php echo time();?>"/>
+		<title>Northampton News - Home</title>
 	</head>
 	<body>
-        <div class="he">
+		<header>
+			<section>
+				<h1>Northampton News</h1>
+			</section>
+		</header>
+		<nav>
+			<ul>
+				<li><a href="index.php">Latest Articles</a></li>
+				<li><a href="#">Select Category</a>
+					<ul>
+					<?php
+					//Logic that handles the projection of all categories in the drop down menu.
+					$projectCategories = "SELECT category_id,name,description FROM category";
+					$storeProjection = $connection->prepare($projectCategories);
+					$storeProjection->execute();
+					while($eachCat = $storeProjection->fetch(PDO::FETCH_ASSOC)){
+						echo '<li><a href="categoryPage.php?catId='.$eachCat['category_id'].'">'.$eachCat['name'].'</a></li>';
+					}
+				?>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<img src="images/banners/randombanner.php" />
+		<main>
+			<article>
+            <div class="he">
             <div id="registerPart">
             <h1>Sign up your Account</h1>
             <!-- form to be submitted for registering -->
@@ -86,10 +109,17 @@ Structure designs that would be added in the front end page that this file refer
                     <br>
                     <br>
                     <div class="btnRe">
-                    <button type="submit" name="submit" value="submit">Register</button>
+                    <button class="sorat" type="submit" name="submit" value="submit">Register</button>
                     </div>
                 </form>
             </div>
         </div>
+			</article>
+		</main>
+
+		<footer>
+			&copy; Northampton News 2017
+		</footer>
 	</body>
 </html>
+
