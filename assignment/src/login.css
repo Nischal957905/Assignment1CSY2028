@@ -1,0 +1,133 @@
+body{
+    background-color: rgb(190, 185, 185);
+    padding: 0;
+        margin: 0;
+        font-family: 'Alegreya Sans', sans-serif;
+}
+.logDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10vh;
+}
+
+.formLog{
+    text-align: center;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px grey;
+    width: 30vw;
+    height: 75vh;
+}
+
+.picHold{
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 2px 2px 2px grey;
+    justify-content: center;
+    background-color: #B7CBC0;
+    width: 40vw;
+    height: 75vh;
+}
+
+button{
+    background-color: rgb(64, 64, 64);
+    color: white;
+    border: none;
+    padding: 8px 35px 8px 35px;
+    box-shadow: 2px 2px 2px 2px grey;
+    border-radius: 15px;
+}
+
+.buttonSign{
+    display: block;
+    float: right;
+    margin-top: 2vh;
+    margin-right: 1.5vw;
+    background-color: green;
+    color: white;
+    width: 50px;
+    text-decoration: none;
+    padding: 5px 20px 5px 20px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px 2px green;
+}
+
+input{
+    width: 250px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(161, 159, 159);
+}
+label{
+    margin-left: -207px;
+    font-size: 13px;
+    color: grey;
+}
+
+p{
+    color: grey;
+}
+h1{
+    margin-bottom: 30px;
+}
+
+.registerH{
+    font-size:20px;
+    height: 100px;
+}
+.registerH h1{
+    font-size:30px;
+}
+
+#registerPart{
+    background-color: #B7CBC0;
+    width: 60vw;
+    height: 70vh;    
+}
+#registerPart h1{
+    text-align: center;
+}
+
+#registerPart h1:after{
+    margin-top: 10px;
+    content: " ";
+    display: block;
+    height: 2px;
+    background-color: black;
+}
+
+.he{
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#registerPart label{
+    margin: 0;
+    color: black;
+}
+
+#registerPart input{
+    margin-bottom: 10px;
+}
+
+.inner{
+    padding-left: 7vw;
+    display: block;
+    width: 53vw;
+}
+
+.ouIn{
+    display: inline-block;
+    margin-right: 5vw;
+}
+
+.btnRe{
+    display: block;
+    text-align: center;
+
+}
+
+
+
