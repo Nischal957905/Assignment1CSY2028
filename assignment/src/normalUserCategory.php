@@ -83,7 +83,7 @@ Structure designs that would be added in the front end page that this file refer
 								echo '<ul>
 								<li><a href="normalUserArticle.php">Articles</a></li>
 								<li><a href="normalUserCategory.php">Category</a></li>
-								<li><a href="createArticle.php">Admin</a></li>
+								<li><a href="adminArticles.php">Admin</a></li>
 							</ul>';
 							}
 							else{
