@@ -40,10 +40,46 @@ if(isset($_SESSION['onBoardUser'])){
 }
 //Logic to edit the changes that has been made into the database.
 if(isset($_POST['submit'])){
-	$intVal = (int)$_POST['adminId'];
-	$_SESSION['onBoardUser'] = $_POST['adminEmail'];
-	updateAdmin($intVal,$_POST['adminUser'],$_POST['adminEmail']);
-	header('location: editAdmin.php?adminId='.$intVal);
+
+	if(!empty($_POST['adminEmail']) && !empty($_POST['adminUser'])){
+
+		$checkEmail = "SELECT email,username FROM users WHERE user_id!=:user_id";
+		$getValid = $connection->prepare($checkEmail);
+		$getValid->execute(['user_id'=> $_POST['adminId']]);
+		$emailFound = false;
+		$userFound = false;
+		while($eachEmail = $getValid->fetch(PDO::FETCH_ASSOC)){
+			if($eachEmail['email'] == $_POST['adminEmail']){
+				$emailFound = true;
+			}
+			if($eachEmail['username'] == $_POST['adminUser']){
+				$userFound = true;
+			}
+   		}
+
+		if($emailFound == false && $userFound == false){
+			$intVal = (int)$_POST['adminId'];
+			$_SESSION['onBoardUser'] = $_POST['adminEmail'];
+			updateAdmin($intVal,$_POST['adminUser'],$_POST['adminEmail']);
+			header('location: editAdmin.php?adminId='.$intVal);
+		}
+		else if($emailFound == true && $userFound == false ){
+            $intVal = (int)$_POST['adminId'];
+			header('location: editAdmin.php?adminId='.$intVal);
+        }
+        else if($emailFound == false && $userFound == true ){
+            $intVal = (int)$_POST['adminId'];
+			header('location: editAdmin.php?adminId='.$intVal);
+        }
+        else{
+            $intVal = (int)$_POST['adminId'];
+			header('location: editAdmin.php?adminId='.$intVal);
+        }
+	}
+	else{
+		$intVal = (int)$_POST['adminId'];
+		header('location: editAdmin.php?adminId='.$intVal);
+	}
 }
 ?>
 <!--
@@ -118,7 +154,7 @@ Structure designs that would be added in the front end page that this file refer
                         <p>Currently editing '.$eachAdmin['username'].'</p>
 						<form action="editAdmin.php" method="POST">
 							<input type="hidden" name="adminId" value='.$eachAdmin['user_id'].'/>
-                            <label>Email:</label><input type="text" name="adminEmail" value="'.$eachAdmin['email'].'"/>
+                            <label>Email:</label><input type="email" name="adminEmail" value="'.$eachAdmin['email'].'"/>
                             <label>Username:</label><input type="text" name="adminUser" value="'.$eachAdmin['username'].'"/>
 							<input type="submit" name="submit" value="save changes" />
 						</form></a>';

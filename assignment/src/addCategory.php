@@ -41,9 +41,26 @@ if(isset($_SESSION['onBoardUser'])){
 //Whenever the form below is submitted this logic get executed and a new category is added into the database.
 if(isset($_POST['submit'])){
     if(!empty($_POST['nameCategory']) && !empty($_POST['descCategory'])){
-        dataInsertionCategory($_POST['nameCategory'],$_POST['descCategory']);
-		$echoError = "<script>alert('New category created!')</script>";
-		echo $echoError;
+
+		$checkCat = "SELECT name FROM category";
+		$validCat = $connection->prepare($checkCat);
+		$validCat->execute();
+		$existsCat = false;
+		while($validNewCat = $validCat->fetch(PDO::FETCH_ASSOC)){
+			if($validNewCat['name'] == $_POST['nameCategory']){
+				$existsCat = true;
+			}
+		}
+
+		if($existsCat == false){
+			dataInsertionCategory($_POST['nameCategory'],$_POST['descCategory']);
+			$echoError = "<script>alert('New category created!')</script>";
+			echo $echoError;
+		}
+		else{
+			$echoError = "<script>alert('Category Exists!')</script>";
+			echo $echoError;
+		}
     }
     else{
         $echoError = "<script>alert('Input fields are empty!')</script>";

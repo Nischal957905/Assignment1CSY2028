@@ -27,12 +27,39 @@ if(isset($_POST['submit'])){
     !empty($_POST['registerEmail']) && !empty($_POST['registerUser']) &&
     !empty($_POST['registerPass']) && isset($_POST['registerGender'])){
 
-        makeNewUser($_POST['registerName'],$_POST['registerSur'],$_POST['registerAge'],
-        $_POST['registerGender'],$_POST['registerEmail'],$_POST['registerUser'],
-        $_POST['registerPass']);
-        $_SESSION['newAcc'] = true;
-        header('location: login.php');
-        die();
+        $checkEmail = "SELECT email,username FROM users";
+        $getValid = $connection->prepare($checkEmail);
+        $emailFound = false;
+        $userFound = false;
+        $getValid->execute();
+        while($eachEmail = $getValid->fetch(PDO::FETCH_ASSOC)){
+            if($eachEmail['email'] == $_POST['registerEmail']){
+                $emailFound = true;
+            }
+            if($eachEmail['username'] == $_POST['registerUser']){
+                $userFound = true;
+            }
+        }
+        if($emailFound == false && $userFound == false){
+            makeNewUser($_POST['registerName'],$_POST['registerSur'],$_POST['registerAge'],
+            $_POST['registerGender'],$_POST['registerEmail'],$_POST['registerUser'],
+            $_POST['registerPass']);
+            $_SESSION['newAcc'] = true;
+            header('location: login.php');
+            die();
+        }
+        else if($emailFound == true && $userFound == false ){
+            $echoError = "<script>alert('User with this email exists!')</script>";
+		    echo $echoError;
+        }
+        else if($emailFound == false && $userFound == true ){
+            $echoError = "<script>alert('User with this username exists!')</script>";
+		    echo $echoError;
+        }
+        else{
+            $echoError = "<script>alert('User with this username and email exists!')</script>";
+		    echo $echoError;
+        }
     }
     else{
         $echoError = "<script>alert('Input fields are empty!')</script>";

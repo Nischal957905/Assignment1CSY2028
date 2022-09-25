@@ -40,10 +40,40 @@ if(isset($_SESSION['onBoardUser'])){
 }			
 //Whenever the form below is submitted this logic get executed and a new admin is added into the database.
 if(isset($_POST['submit'])){
+
     if(!empty($_POST['adminEmail']) && !empty($_POST['adminUser']) && !empty($_POST['adminPass'])){
-        createNewAdmin($_POST['adminEmail'],$_POST['adminUser'],$_POST['adminPass']);
-		$echoError = "<script>alert('New Admin created!')</script>";
-		echo $echoError;
+
+		$checkEmail = "SELECT email,username FROM users";
+		$getValid = $connection->prepare($checkEmail);
+		$emailFound = false;
+		$userFound = false;
+		$getValid->execute();
+		while($eachEmail = $getValid->fetch(PDO::FETCH_ASSOC)){
+			if($eachEmail['email'] == $_POST['adminEmail']){
+				$emailFound = true;
+			}
+			if($eachEmail['username'] == $_POST['adminUser']){
+				$userFound = true;
+			}
+   		}
+
+		if($emailFound == false && $userFound == false){
+			createNewAdmin($_POST['adminEmail'],$_POST['adminUser'],$_POST['adminPass']);
+			$echoError = "<script>alert('New Admin created!')</script>";
+			echo $echoError;
+		}
+		else if($emailFound == true && $userFound == false ){
+            $echoError = "<script>alert('User with this email exists!')</script>";
+		    echo $echoError;
+        }
+        else if($emailFound == false && $userFound == true ){
+            $echoError = "<script>alert('User with this username exists!')</script>";
+		    echo $echoError;
+        }
+        else{
+            $echoError = "<script>alert('User with this username and email exists!')</script>";
+		    echo $echoError;
+        }
     }
     else{
         $echoError = "<script>alert('Input fields are empty!')</script>";

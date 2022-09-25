@@ -41,10 +41,25 @@ if(isset($_SESSION['onBoardUser'])){
 //Whenever the form below is submitted this logic get executed and a new article is added into the database.
 if(isset($_POST['submit'])){
     if(!empty($_POST['titleArticle']) && !empty($_POST['nameAuthor']) && isset($_POST['categories'])){
-		$catIdVal = $_POST['categories'];
-        dataInsertionArticle($_POST['titleArticle'],$catIdVal,$_POST['conArticle'],$_POST['nameAuthor']);
-		$echoError = "<script>alert('New Article created!')</script>";
-		echo $echoError;
+		$checkArticle = "SELECT title FROM article";
+		$getCheck = $connection->prepare($checkArticle);
+		$getCheck->execute();
+		$existsArt = false;
+		while($valid = $getCheck->fetch(PDO::FETCH_ASSOC)){
+			if($valid['title'] == $_POST['titleArticle'] ){
+				$existsArt = true;
+			}
+		}
+		if($existsArt == false){
+			$catIdVal = $_POST['categories'];
+        	dataInsertionArticle($_POST['titleArticle'],$catIdVal,$_POST['conArticle'],$_POST['nameAuthor']);
+			$echoError = "<script>alert('New Article created!')</script>";
+			echo $echoError;
+		}
+		else{
+			$echoError = "<script>alert('Article exists! Post another article')</script>";
+			echo $echoError;
+		}
     }
     else{
         $echoError = "<script>alert('Input fields are empty!')</script>";
